@@ -16,26 +16,33 @@ rankings = []
 # if page is up GO
 if response.status_code == 200:
     soup = BeautifulSoup(response.content, 'html.parser')  # parses
+    # Find table with all the data in it
     table = soup.find('div', 'flex flex-row gap-6 w-full').find_all('table', 'w-full overflow-hidden text-left')
+
+    # iterate over table to refine search
     for rank in table:
-        comp = rank.find('tbody').find_all('td',
-                                           'py-2 first:pl-6 px-2 last:pr-6 py-2 whitespace-nowrap text-black d3-ty-body-small uppercase')
+        comp = rank.find('tbody').find_all('td', 'py-2 first:pl-6 px-2 last:pr-6 py-2 whitespace-nowrap text-black d3-ty-body-small uppercase')
+        # same same
         for placement in comp:
+
+            # finally found the date
             found_data = placement.find('span')
+
+            # make data cleaner b.string return text from tag
             found_string_data = found_data.string
+            # put it in array
             raw_output.append(found_string_data)
 
+
+# separate array from date and placement
 for i, item in enumerate(raw_output):
     if i % 2 == 0:
         date_array.append(item)
     else:
-        result_array.append(item)
-
-date_array, result_array = zip(rankings)
-    #rankings.append((date, result))
+        # y-axis need to be int
+        result_array.append(int(item))
 
 
-print(rankings)
 print(date_array)
 print(result_array)
 
