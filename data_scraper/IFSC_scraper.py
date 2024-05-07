@@ -11,7 +11,6 @@ response = requests.get(url)
 date_array = []
 result_array = []
 raw_output = []
-rankings = []
 
 # if page is up GO
 if response.status_code == 200:
