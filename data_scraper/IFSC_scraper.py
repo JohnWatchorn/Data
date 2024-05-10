@@ -42,6 +42,10 @@ for i, item in enumerate(raw_output):
         result_array.append(int(item))
 
 
+tobys_data = zip(result_array, date_array)
+
+
+print(tobys_data)
 print(date_array)
 print(result_array)
 
